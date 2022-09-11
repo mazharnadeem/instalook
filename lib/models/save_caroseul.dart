@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:insta_look/localDb/database.dart';
+import 'package:insta_look/localDb/firebase_services.dart';
 import 'package:insta_look/pages/Banner_user_side.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SaveCaresol extends StatefulWidget {
   final List<String> urlImages;
@@ -68,31 +71,20 @@ class _SaveCaresolState extends State<SaveCaresol> {
                               //fontSize: 30,
                               fontWeight: FontWeight.bold)),
                       onPressed: () async {
-                        // Fluttertoast.showToast(msg: '${widget.urlImages}');
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    IssueListApi()));
 
+                        var data=await  FirebaseServices().readData();
+                        if(data['payment']=='pending'){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      IssueListApi()));
+                        }
+                        else{
+                          _onShare(context);
 
+                        }
 
-
-                        // signup
-                        // var pathList = <String>[];
-                        // int count = 0;
-                        // for (var item in widget.urlImages) {
-                        //   final bytes = await item.getByteData();
-                        //   final temp = await getTemporaryDirectory();
-                        //   final path = '${temp.path}/${count}image.jpg';
-
-                        //   File(path).writeAsBytesSync(
-                        //       bytes.buffer.asUint8List());
-                        //   pathList.add(path);
-                        //   count++;
-                        // }
-
-                        // await Share.shareFiles(widget.urlImages);
                       },
                       child: const Text(
                         'Post Now',
@@ -101,14 +93,6 @@ class _SaveCaresolState extends State<SaveCaresol> {
                     );
                   },
                 ),
-                // ElevatedButton(
-                //     onPressed: () {
-                //       setState(() {
-                //         filter(context);
-                //       });
-                //       // print('pathlist==$pathList');
-                //     },
-                //     child: Text('test'))
               ],
             ),
           ],
@@ -116,4 +100,44 @@ class _SaveCaresolState extends State<SaveCaresol> {
       )),
     );
   }
+
+  void _onShare(BuildContext context) async {
+    final box = context.findRenderObject() as RenderBox?;
+    List<String>? image=[];
+    var img;
+    var xyz;
+    var imgg;
+
+    var index=widget.urlImages;
+    for(int i=0;i<widget.urlImages.length;i++){
+      var ind=int.parse(index[i]);
+      img=great[ind].image64bit.toString();
+      xyz=Base64Decoder().convert(img);
+      imgg=await DatabaseHelper().openImage(xyz,i);
+      image!.add(imgg);
+    }
+
+
+    var pathList = <String>[];
+    int count = 0;
+    if (pathList.isNotEmpty) {
+      final files = await widget.urlImages
+          .map<String>((file) => file.toString())
+          .toList();
+
+      await Share.shareFiles(widget.urlImages,
+        // text: text,
+        // subject: subject,
+        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size
+      );
+    } else {
+
+      await Share.shareFiles(
+        image!,
+        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size
+      );
+    }
+  }
+
+
 }

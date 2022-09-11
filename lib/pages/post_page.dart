@@ -5,7 +5,9 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:insta_look/localDb/database.dart';
+import 'package:insta_look/localDb/firebase_services.dart';
 import 'package:insta_look/pages/instapayment.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,7 +32,7 @@ class _PreviewDartState extends State<PreviewDart> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: SafeArea(
             child: Column(children: [
@@ -63,28 +65,6 @@ class _PreviewDartState extends State<PreviewDart> {
                   enlargeCenterPage: true,
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(12.0),
-              //   child: Row(
-              //     children: [
-              //       Expanded(
-              //         child: Column(
-              //             children: widget.urlImages
-              //                 .map(
-              //                   (urlimg) => Image.file(
-              //                     File(urlimg).absolute,
-              //                     fit: BoxFit.cover,
-              //                     width: 380,
-              //                     height: 200,
-              //                   ),
-              //                   // AssetThumb(
-              //                   //     asset: urlimg, width: 380, height: 200,)
-              //                 )
-              //                 .toList()),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
@@ -100,9 +80,10 @@ class _PreviewDartState extends State<PreviewDart> {
                         hintText: 'Enter some text and/or link to share',
                       ),
                       maxLines: 2,
-                      onChanged: (String value) => setState(() {
-                        text = value;
-                      }),
+                      onChanged: (String value) =>
+                          // setState(() {
+                        text = value,
+                      // }),
                     ),
                     TextField(
                       cursorColor: Colors.black,
@@ -114,9 +95,10 @@ class _PreviewDartState extends State<PreviewDart> {
                         hintText: 'Enter subject to share (optional)',
                       ),
                       maxLines: 2,
-                      onChanged: (String value) => setState(() {
-                        subject = value;
-                      }),
+                      onChanged: (String value) =>
+                          // setState(() {
+                        subject = value,
+                      // }),,
                     ),
                     const Padding(padding: EdgeInsets.only(top: 48.0)),
                     Builder(
@@ -127,20 +109,28 @@ class _PreviewDartState extends State<PreviewDart> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.black,
-                                // padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            IssueListApi())); // signup
-                              },
+                              onPressed: () async {
 
-                              // text.isEmpty ? null : () => _onShare(context),
+                                var data=await  FirebaseServices().readData();
+                                if(data['payment']=='pending'){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IssueListApi()));
+                                }
+                                else{
+                                  _onShare(context);
+
+                                }
+
+                                // text.isEmpty ? null : () => _onShare(context);
+                              },
 
                               child: const Text('Post'),
                             ),
+
                           ],
                         );
                       },
@@ -156,18 +146,25 @@ class _PreviewDartState extends State<PreviewDart> {
 
   void _onShare(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
-    var pathList = <String>[];
-    int count = 0;
-    // for (var item in widget.urlImages) {
-    //   final bytes = await item.getByteData();
-    //   final temp = await getTemporaryDirectory();
-    //   final path = '${temp.path}/${count}image.jpg';
 
-    //   File(path).writeAsBytesSync(bytes.buffer.asUint8List());
-    //   pathList.add(path);
-    //   count++;
-    // }
+    List<String>? image=[];
+    var img;
+    var xyz;
+    var imgg;
+
+    var index=widget.urlImages;
+    for(int i=0;i<widget.urlImages.length;i++){
+      var ind=int.parse(index[i]);
+      img=great[ind].image64bit.toString();
+      xyz=Base64Decoder().convert(img);
+      imgg=await DatabaseHelper().openImage(xyz,i);
+      image!.add(imgg);
+    }
+
+
+    var pathList = <String>[];
     if (pathList.isNotEmpty) {
+
       final files = await widget.urlImages
           .map<String>((file) => file.toString())
           .toList();
@@ -175,11 +172,18 @@ class _PreviewDartState extends State<PreviewDart> {
       await Share.shareFiles(widget.urlImages,
           text: text,
           subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+          // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size
+          );
     } else {
-      await Share.share(text,
-          subject: subject,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+
+
+      await Share.shareFiles(
+          image!,
+        text: text,
+        subject: subject,
+        // sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size
+      );
+
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_look/authentications/login_user.dart';
+import 'package:insta_look/localDb/firebase_services.dart';
 
 import '../pages/small_navigation.dart';
 
@@ -38,6 +39,7 @@ class _SignupState extends State<Signup> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         print(userCredential);
+        FirebaseServices().writeData(email,userCredential.user?.uid);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.black,
@@ -173,7 +175,7 @@ class _SignupState extends State<Signup> {
                           autofocus: false,
                           obscureText: true,
                           decoration: InputDecoration(
-                            hintText: 'Enter you password',
+                            hintText: 'Enter your password',
                             prefixIcon: Icon(Icons.lock),
                             hintStyle: TextStyle(color: Colors.grey),
                             border: OutlineInputBorder(),

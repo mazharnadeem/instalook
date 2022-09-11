@@ -100,5 +100,13 @@ class DatabaseHelper {
     return file.path;
     // await Dio().download(file.path, savePath)
   }
+  openImage(Uint8List img,var ind) async {
+    final appstorage=await getApplicationDocumentsDirectory();
+    final file=File('${appstorage.path}/image$ind.png');
+    await file.writeAsBytes(img);
+    return file.path;
+    // await Dio().download(file.path, savePath)
+  }
+
 
 }

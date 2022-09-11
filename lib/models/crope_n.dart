@@ -157,117 +157,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  // Widget builderGrid() {
-  //   return DragSelectGridView(
-  //       gridController: controller,
-  //       itemCount: savedImages.length,
-  //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //           crossAxisSpacing: 8, crossAxisCount: 3, mainAxisSpacing: 8),
-  //       itemBuilder: (context, index, isSelected) {
-  //         if (isSelected) {
-  //           if (MyimagesList.isNotEmpty &&
-  //               MyimagesList.where((element) => element.index == index)
-  //                       .length ==
-  //                   0) {
-  //             MyimagesList.add(
-  //                 new MyImages(savedImages[index], isSelected, index));
-  //           } else if (MyimagesList.isEmpty) {
-  //             MyimagesList.add(
-  //                 new MyImages(savedImages[index], isSelected, index));
-  //           }
-  //         } else if (savedImages != null && !isSelected) {
-  //           // MyimagesList.remove(value);
-  //         }
-  //         savedImages = savedImages;
-  //         if (isSelected == false) {
-  //           return Stack(overflow: Overflow.visible, children: [
-  //             Positioned(
-  //               child: Image.file(
-  //                 File(savedImages[index].path).absolute,
-  //                 fit: BoxFit.cover,
-  //                 width: 150,
-  //                 height: 150,
-  //               ),
-  //             ),
-  //             Positioned(
-  //                 top: 0,
-  //                 right: 0,
-  //                 left: 90,
-  //                 child: IconButton(
-  //                     onPressed: () {
-  //                       setState(() {
-  //                         savedImages.removeAt(index);
-  //                       });
-  //                     },
-  //                     icon: Icon(Icons.delete, color: Colors.red))),
-  //           ]);
-  //         }
-  //
-  //         return isSelected
-  //             ? SelectableItemWidget(
-  //                 url: savedImages[index].path, IsSelected: isSelected)
-  //             : Container();
-  //       });
-  // }
-
-
-
-
-
-
-
-  // Widget builderGrid1() {
-  //   return DragSelectGridView(
-  //       gridController: controller,
-  //       itemCount: savedImages.length,
-  //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //           crossAxisSpacing: 8, crossAxisCount: 3, mainAxisSpacing: 8),
-  //       itemBuilder: (context, index, isSelected) {
-  //         if (isSelected) {
-  //           if (MyimagesList.isNotEmpty &&
-  //               MyimagesList.where((element) => element.index == index)
-  //                   .length ==
-  //                   0) {
-  //             MyimagesList.add(
-  //                 new MyImages(savedImages[index], isSelected, index));
-  //           } else if (MyimagesList.isEmpty) {
-  //             MyimagesList.add(
-  //                 new MyImages(savedImages[index], isSelected, index));
-  //           }
-  //         } else if (savedImages != null && !isSelected) {
-  //           // MyimagesList.remove(value);
-  //         }
-  //         savedImages = savedImages;
-  //         if (isSelected == false) {
-  //           return Stack(overflow: Overflow.visible, children: [
-  //             Positioned(
-  //               child: Image.file(
-  //                 File(savedImages[index].path).absolute,
-  //                 fit: BoxFit.cover,
-  //                 width: 150,
-  //                 height: 150,
-  //               ),
-  //             ),
-  //             Positioned(
-  //                 top: 0,
-  //                 right: 0,
-  //                 left: 90,
-  //                 child: IconButton(
-  //                     onPressed: () {
-  //                       setState(() {
-  //                         savedImages.removeAt(index);
-  //                       });
-  //                     },
-  //                     icon: Icon(Icons.delete, color: Colors.red))),
-  //           ]);
-  //         }
-  //
-  //         return isSelected
-  //             ? SelectableItemWidget(
-  //             url: savedImages[index].path, IsSelected: isSelected)
-  //             : Container();
-  //       });
-  // }
 
   @override
   void dispose() {
@@ -367,35 +256,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     )),
 
 
-                    // ElevatedButton(
-                    //     onPressed: () async {
-                    //
-                    //       var pList = await DatabaseHelper().getAllProfile();
-                    //       setState(() {
-                    //       });
-                    //       //btnReload
-                    //
-                    //       print(pList[0].id);
-                    //       print(pList[0].name);
-                    //       print('Image64Bit = \n'+pList[0].image64bit);
-                    //       print('Sql data Type = ${pList.runtimeType} : ${pList.length}\n ${pList[0]}');
-                    //       // savedImages.add(File(pList[0].toString()));
-                    //       print('Saved Image=  : ${savedImages} : ${savedImages.runtimeType} : ${savedImages.length}');
-                    //       // setState(() {});
-                    //       getFromUserpic();
-                    //       // UserRepo().getUserspic(_database);
-                    //     },
-                    //     child: Text('Reload')),
-
-
-
-                    // ElevatedButton(
-                    //     onPressed: () async {
-                    //       print('Loveyou : $AssetSelected');
-                    //
-                    //     },
-                    //     child: Text('Check')),
-                    //Text(datas[1].picture.toString()),
                     SizedBox(
                       height: 10,
                     ),
@@ -437,20 +297,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             itemBuilder: (context, index, isSelected) {
 
                               if (isSelected) {
-                                // if (MyimagesList.isNotEmpty &&
-                                //     MyimagesList.where((element) => element.index == index)
-                                //         .length ==
-                                //         0) {
-                                //   MyimagesList.add(
-                                //       new MyImages(savedImages[index], isSelected, index));
-                                // } else if (MyimagesList.isEmpty) {
-                                //   MyimagesList.add(
-                                //       new MyImages(savedImages[index], isSelected, index));
-                                // }
+
                               } else if (great != null && !isSelected) {
-                                // MyimagesList.remove(value);
+
                               }
-                              // savedImages = savedImages;
 
                               if (isSelected == false) {
                                 return Stack(overflow: Overflow.visible, children: [
@@ -463,9 +313,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       left: 90,
                                       child: IconButton(
                                           onPressed: () async{
-                                            // Fluttertoast.showToast(msg: 'msg');
-                                            print('yes');
-                                            // Fluttertoast.showToast(msg: '${great[index].id}');
+
                                             setState(() {
                                               DatabaseHelper().deleteImage(great[index].id);
 
@@ -486,64 +334,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               }
                             });
 
-                        // return DragSelectGridView(
-                        //     gridController: controller,
-                        //     itemCount: great.length,
-                        //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        //         crossAxisSpacing: 8, crossAxisCount: 3, mainAxisSpacing: 8),
-                        //     itemBuilder: (context, index, isSelected) {
-                        //       if (isSelected) {
-                        //         if (MyimagesList.isNotEmpty &&
-                        //             MyimagesList.where((element) => element.index == index)
-                        //                 .length ==
-                        //                 0) {
-                        //           MyimagesList.add(
-                        //               new MyImages(savedImages[index], isSelected, index));
-                        //         } else if (MyimagesList.isEmpty) {
-                        //           MyimagesList.add(
-                        //               new MyImages(savedImages[index], isSelected, index));
-                        //         }
-                        //       } else if (savedImages != null && !isSelected) {
-                        //         // MyimagesList.remove(value);
-                        //       }
-                        //       savedImages = savedImages;
-                        //       if (isSelected == false) {
-                        //         return Stack(overflow: Overflow.visible, children: [
-                        //           Positioned(
-                        //             child: Image.file(
-                        //               File(savedImages[index].path).absolute,
-                        //               fit: BoxFit.cover,
-                        //               width: 150,
-                        //               height: 150,
-                        //             ),
-                        //           ),
-                        //           Positioned(
-                        //               top: 0,
-                        //               right: 0,
-                        //               left: 90,
-                        //               child: IconButton(
-                        //                   onPressed: () {
-                        //                     setState(() {
-                        //                       savedImages.removeAt(index);
-                        //                     });
-                        //                   },
-                        //                   icon: Icon(Icons.delete, color: Colors.red))),
-                        //         ]);
-                        //       }
-                        //
-                        //       return isSelected
-                        //           ? SelectableItemWidget(
-                        //           url: savedImages[index].path, IsSelected: isSelected)
-                        //           : Container();
-                        //     });
-
-
-                        // return ListView.builder(
-                        //   itemCount: great.length,
-                        //   itemBuilder: (context, index) {
-                        //   // return Text(great[index].name);
-                        //   return Image.memory(const Base64Decoder().convert(great[index].image64bit.toString()),height: 150,width: 150,);
-                        // },);
                       }
                     },);
                 },),
@@ -596,28 +386,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 onTap: (value) async {
                   if (value == 0) {
-                    // setState(() {
-                    //   File Item0 = savedImages
-                    //       .where((element) =>
-                    //           element == MyimagesList.first.imageSource)
-                    //       .single;
-                    //   int Item0Index = savedImages.indexOf(Item0);
-                    //   File Item1 = savedImages
-                    //       .where((element) =>
-                    //           element == MyimagesList.last.imageSource)
-                    //       .single;
-                    //   int Item1Index = savedImages.indexOf(Item1);
-                    //
-                    //   var tmp = savedImages[Item0Index];
-                    //   savedImages[Item0Index] = savedImages[Item1Index];
-                    //   savedImages[Item1Index] = tmp;
-                    // });
-                    if(AssetSelected.length==2){
-                      //btntrue
 
+                    if(AssetSelected.length==2){
                       var first=int.parse(AssetSelected[0]);
                       var second=int.parse(AssetSelected[1]);
-                      // Fluttertoast.showToast(msg: '${first} = ${first.runtimeType}');
                       setState(() {
                         DatabaseHelper().updateImage(great[first].id, great[second].image64bit);
                         DatabaseHelper().updateImage(great[second].id, great[first].image64bit);
@@ -647,11 +419,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         print('AssetSelectedimages==$AssetSelected');
                       }
                     });
-                  }
-                  ;
+                  };
 
                   if (value == 2) {
-                    // var response = dio.download('https://www.google.com/', './xx.html');
 
                       var AssetSelected =
                           controller.value.selectedIndexes.map<String>((index) {
@@ -672,9 +442,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text('Image Saved to Gallery'),
                           ));
-                          // setState(() {
-                          //   print("image saved!");
-                          // });
                         });
 
 
@@ -684,41 +451,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 content: Text('Only 1 photo at a time'),
                               ));
                       }
-
-                      // for(int i=0;i<len;i++){
-                        // Fluttertoast.showToast(msg: '${AssetSelected[i]}');
-                        // var first=int.parse(AssetSelected[i]);
-                        // var img=great[first].image64bit.toString();
-                        //
-                        // var xyz=Base64Decoder().convert(img);
-                        // var imgg=await DatabaseHelper().downloadImage(xyz);
-                        // GallerySaver.saveImage(imgg.toString(),
-                        //     albumName: 'instalook')
-                        // .onError((error, stackTrace) { ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //   content: Text('$error'),
-                        // ));})
-                        //     .then((bool) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //     content: Text('Saved $i'),
-                        //   ));
-                        //   // setState(() {
-                        //   //   print("image saved!");
-                        //   // });
-                        // });
-                      // }
-
-
-                      // Fluttertoast.showToast(msg: '${imgg}');
-
-
-
-
-
-                      // GallerySaver.methodSaveImage;
-
-                      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //   content: Text('Save To Gallery : $AssetSelected'),
-                      // ));
                   }
                   ;
                   if (value == 3) {

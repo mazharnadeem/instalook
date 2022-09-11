@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:insta_look/authentications/login_user.dart';
 import 'package:insta_look/colors/color.dart';
 import 'package:insta_look/localDb/global.dart';
-import 'package:insta_look/localDb/home_db.dart';
 
+import 'package:insta_look/localDb/home_db.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,10 +14,9 @@ import 'pages/small_navigation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Stripe.publishableKey = 'pk_test_51LLotEC7iEn7tJEBuYguNY9w7SHv4YFTjGcCcolKfw99zDgF9mWGyuoujFoNfSCla7VEanJDGZp5M5kMVFpRh0hO004r99NDbw';
   runApp(MyApp());
-  //  WidgetsFlutterBinding.ensureInitialized();
 
-  //Stripe.publishableKey = 'pk_test_51Kaw0BBNthAqbyRmx5rChWZfHcnDW8FQix5HnPN1izgxRCrVVUXYSdcVD3MFs7mXqKxHNM7pu5HI3Nh0Z6z2q9bi00cFq8FDBr';
 }
 
 class MyApp extends StatelessWidget {
